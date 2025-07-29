@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { navs } from "./static";
+import { useAuthStore } from "@/stores/authStore";
 
 const Navbar = () => {
+  const { user, signOut } = useAuthStore();
+
   return (
     <div className="w-full bg-black">
       <div className="w-full max-w-[1440px] h-[54px] mx-auto px-16">
@@ -27,11 +32,38 @@ const Navbar = () => {
               ))}
             </div>
 
-            <Link href="/sign-up">
-              <button className="p-[8px_40px] bg-white rounded-[2px] cursor-pointer">
-                <p className="p-0 font-mono text-base text-black">Sign Up</p>
-              </button>
-            </Link>
+            {user.username ? (
+              <div className="flex flex-row items-center gap-[16px]">
+                <p className="font-mono text-base text-white">
+                  Halo, {user.username}
+                </p>
+
+                <button
+                  className="p-[8px_16px] bg-white rounded-[2px] cursor-pointer"
+                  onClick={() => signOut()}
+                >
+                  <p className="p-0 font-mono text-base text-black">Sign Out</p>
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-row items-center gap-[16px]">
+                <Link href="/sign-in">
+                  <button className="p-[8px_24px] bg-white rounded-[2px] cursor-pointer">
+                    <p className="p-0 font-mono text-base text-black">
+                      Sign In
+                    </p>
+                  </button>
+                </Link>
+
+                <Link href="/sign-up">
+                  <button className="p-[8px_24px] bg-white rounded-[2px] cursor-pointer">
+                    <p className="p-0 font-mono text-base text-black">
+                      Sign Up
+                    </p>
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import Layout from "@/components/layout";
+import SignUpView from "@/views/sign-up";
 
 const SignUp = () => {
   return (
     <Layout disabledNavbar>
-      <div>Ini halaman sign up</div>
+      <SignUpView />
     </Layout>
   );
 };
